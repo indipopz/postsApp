@@ -25,8 +25,9 @@ class PostsIndex extends Component {
     render(){
         return(
             <div>
-                <div className="text-xs-right">
+                <div className="btn-group text-xs-right">
                     <Link to="/posts/new" className="btn btn-primary" > Add a Post </Link>
+                    <Link to="/register" className="btn btn-primary" > Register </Link>
                 </div>
                 <h3>Posts</h3>
                 <ul className="list-group">  

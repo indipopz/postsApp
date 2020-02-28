@@ -4,11 +4,13 @@ import App from './components/app';
 import PostsIndex from './components/posts_index';
 import PostsNew from './components/posts_new';
 import PostsShow from './components/posts_show';
+import RegisterForm from './components/auth/register_form';
 
 export default (
     <Route path="/" component={App} >
         <IndexRoute component={PostsIndex} />
         <Route path='posts/new' component={PostsNew} />
         <Route path='posts/:id' component={PostsShow} />
+        <Route path='/register' component={RegisterForm} />
     </Route>
 );
