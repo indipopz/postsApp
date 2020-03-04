@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { reduxForm } from 'redux-form';
 import { PropTypes } from 'prop-types';
 import { registerUser } from '../../actions/index';
+import { Link } from 'react-router';
 
 class RegisterForm extends Component {
     static contextTypes = {
@@ -11,7 +12,7 @@ class RegisterForm extends Component {
     onSubmit(props){
         this.props.registerUser(props)
             .then(() => {
-                this.context.router.push('/');
+                this.context.router.push('/login');
             })
             .catch((error) => {
                 console.log(error);
@@ -40,6 +41,7 @@ class RegisterForm extends Component {
                     </div>
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
+                <Link to="/" className="btn btn-danger">Cancel</Link>
             </form>
             </div>
         )

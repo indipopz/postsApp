@@ -28,6 +28,7 @@ class PostsIndex extends Component {
                 <div className="btn-group text-xs-right">
                     <Link to="/posts/new" className="btn btn-primary" > Add a Post </Link>
                     <Link to="/register" className="btn btn-primary" > Register </Link>
+                    <Link to="/login" className="btn btn-primary" > Login </Link>
                 </div>
                 <h3>Posts</h3>
                 <ul className="list-group">  

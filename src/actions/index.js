@@ -1,11 +1,12 @@
 import axios from 'axios';
-import { POST_API_KEY, FIREBASE_REGISTER_URL } from '../keys';
+import { POST_API_KEY, FIREBASE_REGISTER_URL, FIREBASE_LOGIN_URL } from '../keys';
 
 export const FETCH_POSTS = 'FETCH_POSTS';
 export const CREATE_POST = 'CREATE_POST';
 export const FETCH_POST = 'FETCH_POST';
 export const DELETE_POST = 'DELETE_POST';
 export const REGISTER_USER = 'REGISTER_USER';
+export const LOGIN_USER = 'LOGIN_USER';
 
 
 const ROOT_URL = 'http://reduxblog.herokuapp.com/api';
@@ -54,4 +55,21 @@ export function registerUser(postData){
         type: REGISTER_USER,
         payload: request
     };
+}
+
+export function loginUser(postData){
+    const request = axios.post(FIREBASE_LOGIN_URL, postData);
+    if(request){
+        setLocalStorage(request);
+    }
+    
+    return {
+        type: LOGIN_USER,
+        payload: request
+    };
+}
+
+function setLocalStorage(request){
+    localStorage.setItem('token', request.idToken);
+    localStorage.setItem('userId', request.localId);
 }
