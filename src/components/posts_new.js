@@ -2,22 +2,28 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import { reduxForm } from 'redux-form';
 import { createPost } from '../actions/index';
-import { Link } from 'react-router';
+import { Link, Redirect } from 'react-router-dom';
 
 class PostsNew extends Component {
-    static contextTypes = {
-        router: PropTypes.object
+    state = {
+        redirect: false
     }
 
     onSubmit(props){
         this.props.createPost(props)
             .then(() => {
-                this.context.router.push('/');
+                this.setState({ redirect: true });
             });
     }
     
 
     render(){
+        const { redirect } = this.state;
+
+        if (redirect) {
+            return <Redirect to='/'/>;
+        }
+
         const { fields: { title, categories, content }, handleSubmit } = this.props;
 
         return(

@@ -1,30 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPost, deletePost } from '../actions/index';
-import { Link } from 'react-router';
+import { Link, Redirect } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 
 class PostsShow extends Component {
-    componentWillMount() {
-        this.props.fetchPost(this.props.params.id);
+    state = {
+        redirect: false
     }
 
-    static contextTypes = {
-        router: PropTypes.object
+    componentWillMount() {
+        this.props.fetchPost(this.props.match.params.id);
     }
 
     onDeleteClick(){
-        this.props.deletePost(this.props.params.id)
+        this.props.deletePost(this.props.match.params.id)
             .then(() => {
-                this.context.router.push('/');
+                this.setState({ redirect: true });
             });
 
     }
 
     render(){
+        const { redirect } = this.state;
+
+        if (redirect) {
+            return <Redirect to='/'/>;
+        }
+        
         if(!this.props.post){
             return <div>Loading....</div>;
         }
+
+        
 
         return(
         <div>

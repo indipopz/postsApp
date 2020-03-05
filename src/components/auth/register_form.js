@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { reduxForm } from 'redux-form';
 import { PropTypes } from 'prop-types';
 import { registerUser } from '../../actions/index';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 class RegisterForm extends Component {
     static contextTypes = {
