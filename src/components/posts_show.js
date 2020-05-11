@@ -27,6 +27,10 @@ class PostsShow extends Component {
         if (redirect) {
             return <Redirect to='/'/>;
         }
+
+        if(!this.props.isAuthenticated){
+            return <Redirect to='/login'/>;
+        }
         
         if(!this.props.post){
             return <div>Loading....</div>;

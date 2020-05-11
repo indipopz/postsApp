@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
 import { reduxForm } from 'redux-form';
-import { PropTypes } from 'prop-types';
 import { loginUser } from '../../actions/index';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class loginForm extends Component {
-    static contextTypes = {
-        router: PropTypes.object
+    state = {
+        redirect: false
     }
 
     onSubmit(props){
         this.props.loginUser(props)
             .then(() => {
-                this.context.router.push('/');
+                this.setState({ redirect: true });
             })
             .catch((error) => {
                 console.log(error);
@@ -20,6 +19,16 @@ class loginForm extends Component {
     }
 
     render() {
+        const { redirect } = this.state;
+
+        if (redirect) {
+            return <Redirect to='/'/>;
+        }
+
+        if(this.props.isAuthenticated){
+            return <Redirect to='/'/>;
+        }
+
         const { fields: { email, password }, handleSubmit } = this.props;
 
         return (

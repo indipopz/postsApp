@@ -59,17 +59,9 @@ export function registerUser(postData){
 
 export function loginUser(postData){
     const request = axios.post(FIREBASE_LOGIN_URL, postData);
-    if(request){
-        setLocalStorage(request);
-    }
     
     return {
         type: LOGIN_USER,
         payload: request
     };
-}
-
-function setLocalStorage(request){
-    localStorage.setItem('token', request.idToken);
-    localStorage.setItem('userId', request.localId);
 }

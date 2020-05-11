@@ -18,8 +18,8 @@ export default function(state = INITIAL_STATE, action){
             if(!action.payload.data){
                 return state;
             }
-            console.log(action.payload.data);
-            
+            // console.log(action.payload.data.localId);
+            localStorage.setItem('userId', action.payload.data.localId);
             return {userId: action.payload.data.localId,  token: action.payload.data.idToken, expiresIn: getDate(action.payload.data.expiresIn) };
         
         default:

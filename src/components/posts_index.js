@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPosts } from '../actions/index';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class PostsIndex extends Component {
     componentWillMount() {
@@ -23,13 +23,13 @@ class PostsIndex extends Component {
     }
 
     render(){
+
+        if(!this.props.isAuthenticated){
+            return <Redirect to='/login'/>;
+        }
+
         return(
             <div>
-                <div className="btn-group text-xs-right">
-                    <Link to="/posts/new" className="btn btn-primary" > Add a Post </Link>
-                    <Link to="/register" className="btn btn-primary" > Register </Link>
-                    <Link to="/login" className="btn btn-primary" > Login </Link>
-                </div>
                 <h3>Posts</h3>
                 <ul className="list-group">  
                     { this.renderPosts() }

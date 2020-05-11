@@ -24,6 +24,10 @@ class PostsNew extends Component {
             return <Redirect to='/'/>;
         }
 
+        if(!this.props.isAuthenticated){
+            return <Redirect to='/login'/>;
+        }
+
         const { fields: { title, categories, content }, handleSubmit } = this.props;
 
         return(
