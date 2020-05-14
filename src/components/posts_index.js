@@ -4,21 +4,23 @@ import { fetchPosts } from '../actions/index';
 import { Link, Redirect } from 'react-router-dom';
 
 class PostsIndex extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            isAuthenticated: false
-        };
+    state = {
+        redirect: false
     }
     componentDidMount() {
-        this.setState({
-            isAuthenticated: this.props.isAuthenticated
-        });
         this.props.fetchPosts();
     }
 
     renderPosts(){
-        console.log(this.props.isAuthenticated, this.state.isAuthenticated);
+        const { redirect } = this.state;
+
+        if (redirect) {
+            return <Redirect to='/'/>;
+        }
+        
+        if(!this.props.isAuthenticated){
+            return <Redirect to='/login'/>;
+        }
         return this.props.posts.map((post) => {
             return(
                 <li className="list-group-item" key={post.id}>
