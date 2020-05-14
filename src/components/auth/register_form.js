@@ -22,7 +22,7 @@ class RegisterForm extends Component {
         const { redirect } = this.state;
 
         if (redirect) {
-            return <Redirect to='/'/>;
+            return <Redirect to='/login'/>;
         }
 
         if(this.props.isAuthenticated){

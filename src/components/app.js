@@ -1,26 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect, useHistory, useLocation} from "react-router-dom";
 import PostsIndex from './posts_index';
 import PostsNew from './posts_new';
 import PostsShow from './posts_show';
 import RegisterForm from './auth/register_form';
 import LoginForm from './auth/login_form';
+import HomePage from './home'
 
-export default class App extends Component {
+class App extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      userId: null,
-      isAuthenticated: false
-    };
     this.logout = this.logout.bind(this);
-  }
-
-  componentDidMount() {
-    let localUserId = localStorage.getItem('userId');
-    if(localUserId){
-      this.setState({ userId: localUserId, isAuthenticated: true });
-    }
   }
 
   logout() {
@@ -29,7 +20,7 @@ export default class App extends Component {
   }
 
   render() {
-    const isAuthenticated = this.state.isAuthenticated;
+    const isAuthenticated = localStorage.getItem('userId') ? true : false;
 
     return (
       <Router>
@@ -37,6 +28,8 @@ export default class App extends Component {
             {
               isAuthenticated 
               ? <div>
+                  <Link to="/" className="btn btn-primary" > Home </Link>
+                  <Link to="/posts" className="btn btn-primary" > Posts </Link>
                   <Link to="/posts/new" className="btn btn-primary" > Add a Post </Link>
                   <button className="btn btn-primary" onClick={this.logout}>Logout</button>
                 </div>
@@ -50,6 +43,10 @@ export default class App extends Component {
           {/* Protected routes */}
           <Route 
               exact path="/"
+              render={(props) => <HomePage {...props} isAuthenticated={isAuthenticated} />}
+          />
+          <Route 
+              exact path="/posts"
               render={(props) => <PostsIndex {...props} isAuthenticated={isAuthenticated} />}
           />
           <Route 
@@ -76,3 +73,9 @@ export default class App extends Component {
     );
   }
 }
+
+function mapStateToProps(state){
+  return { userId: state.auth.userId };
+}
+
+export default connect(mapStateToProps, null)(App);
